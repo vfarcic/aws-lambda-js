@@ -24,6 +24,6 @@ pipelineConfig:
       stage: build
       steps:
       - name: something 1
-        sh: echo $AWS_ACCESS_KEY_ID
+        sh: echo \$AWS_ACCESS_KEY_ID
       - name: something 1
-        sh: echo $AWS_SECRET_ACCESS_KEY
+        sh: echo \$AWS_SECRET_ACCESS_KEY
