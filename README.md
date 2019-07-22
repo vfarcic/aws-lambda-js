@@ -28,30 +28,6 @@ kubectl create secret \
 # Apart from executing the commands, `jx create quickstart` and `jx import` should create only `jenkins-x.yml`. Use the one from this repo as an example.
 ```
 
-## TODO
-
-```bash
-# curl -X POST https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/dev/hello
-
-serverless invoke \
-    --region $AWS_DEFAULT_REGION \
-    --function hello \
-    --log
-
-serverless logs \
-    --region $AWS_DEFAULT_REGION \
-    --function hello \
-    --tail
-
-serverless remove \
-    --region $AWS_DEFAULT_REGION
-
-        # "buildPackGitRef": {
-        #   "type": "string"
-        # },
-        # "buildPackGitURL": {
-        #   "type": "string"
-        # },
-```
+## Questions?
 
 * Should serverless be available in `jx get applications`? My guess is that no, at least for now.
