@@ -1,3 +1,3 @@
-FROM gcr.io/jenkinsxio/builder-nodejs10x:0.1.589
+FROM node:10-slim
 
 RUN npm install -g serverless

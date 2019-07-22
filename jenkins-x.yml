@@ -28,5 +28,9 @@ pipelineConfig:
           name: tag-version
       promote:
         steps:
-        - sh: jx step changelog --batch-mode --version v\$(cat ../../VERSION)
-          name: changelog
+        - name: changelog
+          sh: jx step changelog --batch-mode --version v\$(cat ../../VERSION)
+        - name: deploy
+          sh: serverless deploy --verbose --region \$REGION --stage production
+          agent:
+            image: vfarcic/lambda-nodejs:10
