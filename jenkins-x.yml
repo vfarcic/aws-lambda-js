@@ -1,5 +1,7 @@
 buildPack: none
 pipelineConfig:
+  agent:
+    image: vfarcic/lambda-nodejs:10
   # # TODO: Customize depending on the provider
   # env:
   # - name: REGION
