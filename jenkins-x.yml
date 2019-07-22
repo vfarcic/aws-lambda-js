@@ -28,3 +28,5 @@ pipelineConfig:
         sh: serverless deploy --verbose --region \$REGION --stage production
         agent:
           image: vfarcic/lambda-nodejs:10
+    - pipeline: pullRequest
+      stage: build
