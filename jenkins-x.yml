@@ -14,16 +14,9 @@ pipelineConfig:
   pipelines:
     overrides:
     - pipeline: release
-      stage: setup
-      steps:
-      - name: clone
-        groovy: git "https://github.com/vfarcic/aws-lambda-js.git"
-      - name: checkout-scm
-        groovy: checkout scm
-    - pipeline: release
       stage: build
       steps:
       - name: something 1
         sh: echo \$AWS_ACCESS_KEY_ID
-      - name: something 1
+      - name: something 2
         sh: echo \$AWS_SECRET_ACCESS_KEY
