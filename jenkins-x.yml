@@ -5,3 +5,6 @@ pipelineConfig:
     - pipeline: release
       # This is new
       stage: build
+      steps:
+      - name: Install
+        sh: npm install -g serverless
