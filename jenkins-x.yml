@@ -1,5 +1,16 @@
 buildPack: go
 pipelineConfig:
+  env:
+  - name: AWS_ACCESS_KEY_ID
+    valueFrom:
+      secretKeyRef:
+        key: aws-lambda
+        name: access-key-id
+  - name: AWS_SECRET_ACCESS_KEY
+    valueFrom:
+      secretKeyRef:
+        key: aws-lambda
+        name: secret-access-key
   pipelines:
     overrides:
     - pipeline: release
@@ -12,5 +23,7 @@ pipelineConfig:
     - pipeline: release
       stage: build
       steps:
-      - name: Install
-        sh: npm install -g serverless
+      - name: something 1
+        sh: echo $AWS_ACCESS_KEY_ID
+      - name: something 1
+        sh: echo $AWS_SECRET_ACCESS_KEY

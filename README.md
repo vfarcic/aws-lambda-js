@@ -18,13 +18,14 @@ mv tmp/serverless.yml .
 
 rm -rf tmp
 
-export AWS_ACCESS_KEY_ID=AKIAJUMYZLSXTUC3AZMQ
+export AWS_ACCESS_KEY_ID=[...]
 
-export AWS_SECRET_ACCESS_KEY=4+av6j6qlBq3T8r1pRn10Kswgs+D48IVNQTssfG2
+export AWS_SECRET_ACCESS_KEY=[...]
 
 kubectl create secret \
-    generic codecov \
-    --from-literal=token=$CODECOV_TOKEN
+    generic aws-lambda \
+    --from-literal=access-key-id=$AWS_ACCESS_KEY_ID \
+    --from-literal=secret-access-key=$AWS_SECRET_ACCESS_KEY
 ```
 
 ## Add to pipeline
