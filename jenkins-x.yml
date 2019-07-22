@@ -1,0 +1,10 @@
+buildPack: none
+agent:
+  label: lambda-node-10
+  container: vfarcic/lambda-nodejs:10
+pipelines:
+  release:
+    setup:
+      steps:
+      - name: something
+        sh: echo something

@@ -1,63 +1,44 @@
 ```bash
-open "https://docs.aws.amazon.com/lambda/latest/dg/getting-started-create-function.html"
+npm install -g serverless
 
-# Follow the instructions
+# ... or ...
 
-LAMBDA_ROLE=[...]
+npm update -g serverless
 
-# Delete the function
+serverless create \
+    --template aws-nodejs \
+    --path tmp \
+    --name my-serverless
 
-zip function.zip *.js
+mv tmp/handler.js .
 
-export AWS_ACCESS_KEY_ID=[...]
+mv tmp/serverless.yml .
 
-export AWS_SECRET_ACCESS_KEY=[...]
+rm -rf tmp
 
-export AWS_DEFAULT_REGION=[...]
+serverless deploy \
+    --region $AWS_DEFAULT_REGION \
+    --verbose
 
-aws lambda list-functions
+# curl -X POST https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/dev/hello
 
-aws lambda create-function \
-    --function-name my-function \
-    --runtime nodejs10.x \
-    --role $LAMBDA_ROLE \
-    --handler index.handler \
-    --zip-file fileb://function.zip
+serverless invoke \
+    --region $AWS_DEFAULT_REGION \
+    --function hello \
+    --log
 
-# or...
+serverless logs \
+    --region $AWS_DEFAULT_REGION \
+    --function hello \
+    --tail
 
-aws lambda update-function-code \
-    --function-name my-function \
-    --zip-file fileb://function.zip
+serverless remove \
+    --region $AWS_DEFAULT_REGION
 
-aws lambda list-functions
-
-open "https://docs.aws.amazon.com/lambda/latest/dg/nodejs-create-deployment-pkg.html" # Updating a Function with Additional Dependencies
-
-aws lambda invoke \
-    --function-name my-function out \
-    --log-type Tail
-
-aws lambda invoke \
-    --function-name my-function out \
-    --log-type Tail \
-    --query 'LogResult' --output text \
-    |  base64 --decode
-
-aws lambda invoke \
-    --function-name my-function \
-    --payload '{"key": "value"}' response.json
-
-aws logs get-log-events \
-    --log-group-name /aws/lambda/my-function \
-    --log-stream-name=file://out \
-    --limit 5
-
-aws lambda invoke \
-    --function-name my-function  \
-    --invocation-type Event \
-    --payload '{ "key": "value" }' \
-    response.json
-
-# Create an API gateway and test the function with `curl`
+        # "buildPackGitRef": {
+        #   "type": "string"
+        # },
+        # "buildPackGitURL": {
+        #   "type": "string"
+        # },
 ```
