@@ -1,10 +1,8 @@
-buildPack: go
+buildPack: none
 pipelineConfig:
   pipelines:
-    overrides:
-    - pipeline: release
-      # This is new
-      stage: build
-      steps:
-      - name: Install
-        sh: npm install -g serverless
+    release:
+      build:
+        steps:
+        - name: Install
+          sh: npm install -g serverless
