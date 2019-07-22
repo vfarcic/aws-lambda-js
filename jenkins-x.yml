@@ -27,7 +27,7 @@ pipelineConfig:
           steps:
           - sh: echo `jx-release-version` > VERSION
             name: next-version
-          - sh: jx step tag --version $(cat VERSION)
+          - sh: jx step tag --version `cat VERSION`
             name: tag-version
         - name: promote
           steps:
