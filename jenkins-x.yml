@@ -1,1 +1,7 @@
 buildPack: go
+pipelineConfig:
+  pipelines:
+    overrides:
+    - pipeline: release
+      # This is new
+      stage: build
