@@ -4,13 +4,13 @@ pipelineConfig:
   - name: AWS_ACCESS_KEY_ID
     valueFrom:
       secretKeyRef:
-        key: aws-lambda
-        name: access-key-id
+        key: access-key-id
+        name: aws-lambda
   - name: AWS_SECRET_ACCESS_KEY
     valueFrom:
       secretKeyRef:
-        key: aws-lambda
-        name: secret-access-key
+        key: secret-access-key
+        name: aws-lambda
   pipelines:
     overrides:
     - pipeline: release
