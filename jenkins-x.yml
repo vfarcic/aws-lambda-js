@@ -14,11 +14,11 @@ pipelineConfig:
       secretKeyRef:	
         key: secret-access-key	
         name: aws-lambda
-  agent:
-    container: nodejs
   pipelines:
     release:
       pipeline:
+        agent:
+          container: nodejs
         stages:
         - name: setVersion
           steps:
