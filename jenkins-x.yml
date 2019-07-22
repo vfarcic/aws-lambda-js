@@ -1,4 +1,4 @@
-buildPack: go
+buildPack: none
 pipelineConfig:
   # # TODO: Customize depending on the provider
   # env:
