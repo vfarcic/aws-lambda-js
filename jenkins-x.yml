@@ -37,6 +37,8 @@ pipelineConfig:
             image: vfarcic/lambda-nodejs:10
     pullRequest:
       pipeline:
+        agent:
+          image: vfarcic/lambda-nodejs:10
         stages:
           - name: build
             steps:
