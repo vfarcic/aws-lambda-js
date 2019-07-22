@@ -25,14 +25,14 @@ pipelineConfig:
         stages:
         - name: setVersion
           steps:
-          - sh: echo `jx-release-version` > VERSION
-            name: next-version
-          - sh: jx step tag --version `cat VERSION`
-            name: tag-version
+          - name: next-version
+            sh: echo `jx-release-version` > VERSION
+          - name: tag-version
+            sh: jx step tag --version `cat VERSION`
         - name: promote
           steps:
           - name: changelog
-            sh: jx step changelog --batch-mode --version v$(cat ../../VERSION)
+            sh: jx step changelog --batch-mode --version v`cat ../../VERSION`
           # TODO: Should we move `deploy` to the staging env. repo? Functions are so small that waiting for the process behind env. repos might be too much.
           - name: deploy
             sh: serverless deploy --verbose --region $REGION --stage production
