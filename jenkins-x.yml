@@ -21,7 +21,7 @@ pipelineConfig:
       - name: changelog
         sh: jx step changelog --version v\$(cat ../../VERSION)
       # TODO: Move to the staging env. repo
-      - name: deploy
-        sh: serverless deploy --verbose --region us-west-2
+      - name: deploy stagin
+        sh: serverless deploy --verbose --region us-west-2 --stage dev
         agent:
           image: vfarcic/lambda-nodejs:10
