@@ -32,6 +32,8 @@ pipelineConfig:
       stage: build
     - pipeline: pullRequest
       stage: postBuild
+    - pipeline: pullRequest
+      stage: promote
     # - pipeline: pullRequest
     #   stage: promote
     # - pipeline: pullRequest
