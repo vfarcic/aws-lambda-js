@@ -22,7 +22,7 @@ pipelineConfig:
         sh: jx step changelog --version v\$(cat ../../VERSION)
       # TODO: Move to the stagin env. repo
       - name: deploy
-        sh: serverless deploy --verbose
+        sh: serverless deploy --verbose --region us-west-1
         agent:
           image: vfarcic/lambda-nodejs:10
       # steps:
