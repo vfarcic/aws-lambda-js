@@ -1,36 +1,37 @@
-buildPack: none
-agent:
-  label: jenkins-lambda
-  container: vfarcic/lambda-nodejs:10
-# pipelineConfig:
-#   # TODO: Customize depending on the provider
-#   env:
-#   - name: REGION
-#     value: us-west-2
-#   - name: AWS_ACCESS_KEY_ID
-#     valueFrom:
-#       secretKeyRef:
-#         key: access-key-id
-#         name: aws-lambda
-#   - name: AWS_SECRET_ACCESS_KEY
-#     valueFrom:
-#       secretKeyRef:
-#         key: secret-access-key
-#         name: aws-lambda
-pipelines:
-  release:
-    promote:
+buildPack: go
+pipelineConfig:
+  # TODO: Customize depending on the provider
+  env:
+  - name: REGION
+    value: us-west-2
+  - name: AWS_ACCESS_KEY_ID
+    valueFrom:
+      secretKeyRef:
+        key: access-key-id
+        name: aws-lambda
+  - name: AWS_SECRET_ACCESS_KEY
+    valueFrom:
+      secretKeyRef:
+        key: secret-access-key
+        name: aws-lambda
+  pipelines:
+    overrides:
+    - pipeline: release
+      stage: build
+    - pipeline: release
+      stage: promote
       steps:
       - name: changelog
         sh: jx step changelog --version v\$(cat ../../VERSION)
       # TODO: Should we move `deploy` to the staging env. repo? Functions are so small that waiting for the process behind env. repos might be too much.
       - name: deploy
         sh: serverless deploy --verbose --region \$REGION --stage production
-  pullRequest:
-    postBuild:
-      steps:
-      - name: something
-        sh: echo else
+        agent:
+          image: vfarcic/lambda-nodejs:10
+    - pipeline: pullRequest
+      stage: build
+    - pipeline: pullRequest
+      stage: postBuild
     # - pipeline: pullRequest
     #   stage: promote
     # - pipeline: pullRequest
