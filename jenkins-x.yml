@@ -18,7 +18,7 @@ pipelineConfig:
     release:
       pipeline:
         agent:
-          container: nodejs
+          image: gcr.io/jenkinsxio/builder-nodejs10x:0.1.589
         stages:
         - name: setVersion
           steps:
