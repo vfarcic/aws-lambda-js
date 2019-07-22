@@ -1,5 +1,6 @@
 buildPack: go
 pipelineConfig:
+  # TODO: Customize depending on the provider
   env:
   - name: AWS_ACCESS_KEY_ID
     valueFrom:
@@ -20,12 +21,8 @@ pipelineConfig:
       steps:
       - name: changelog
         sh: jx step changelog --version v\$(cat ../../VERSION)
-      # TODO: Move to the staging env. repo
-      - name: deploy staging
-        sh: serverless deploy --verbose --region us-west-2 --stage staging
-        agent:
-          image: vfarcic/lambda-nodejs:10
-      - name: deploy production
+      # TODO: Should we move `deploy` to the staging env. repo? Functions are so small that waiting for the process behind env. repos might be too much.
+      - name: deploy
         sh: serverless deploy --verbose --region us-west-2 --stage production
         agent:
           image: vfarcic/lambda-nodejs:10
