@@ -4,6 +4,14 @@ pipelineConfig:
     image: vfarcic/lambda-nodejs:10
   pipelines:
     release:
-      setup:
+      setVersion:
         steps:
-        - groovy: git 'https://github.com/vfarcic/aws-lambda-js.git'
+        - sh: echo \$(jx-release-version) > VERSION
+          name: next-version
+          comment: so we can retrieve the version in later steps
+        - sh: jx step tag --version \$(cat VERSION)
+          name: tag-version
+      promote:
+        steps:
+        - sh: jx step changelog --batch-mode --version v\$(cat ../../VERSION)
+          name: changelog
