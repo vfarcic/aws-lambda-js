@@ -3,6 +3,8 @@
 ```bash
 # `jx create quickstart` and `jx import` commands can do something similar to the commands that follow.
 
+# The challenge is to allow people to choose `Lambda NodeJS`, `Lambda Go`, etc. when executing `jx create quickstart` without the batch mode. It might make sense to add an argument `deployment-type` which would default to `kubernetes`. If the value is `serverless` we could ask people different questions (e.g., vendor and language).
+
 # `--template` must be parametrized. We can get it through `jx create quickstart` or `jx import` parameters `--framework=lambda` and `--language=nodejs`.
 # `--path` does not seem to allow `.` so setting it to a temporary dir `tmp`.
 serverless create \
