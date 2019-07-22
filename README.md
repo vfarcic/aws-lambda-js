@@ -31,8 +31,6 @@ kubectl create secret \
 ## TODO
 
 ```bash
-serverless deploy --verbose
-
 # curl -X POST https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/dev/hello
 
 serverless invoke \
@@ -55,3 +53,5 @@ serverless remove \
         #   "type": "string"
         # },
 ```
+
+* Should serverless be available in `jx get applications`? My guess is that no, at least for now.
