@@ -1,5 +1,19 @@
 buildPack: none
 pipelineConfig:
+  # TODO: Customize depending on the provider	
+  env:	
+  - name: REGION	
+    value: us-west-2	
+  - name: AWS_ACCESS_KEY_ID	
+    valueFrom:	
+      secretKeyRef:	
+        key: access-key-id	
+        name: aws-lambda	
+  - name: AWS_SECRET_ACCESS_KEY	
+    valueFrom:	
+      secretKeyRef:	
+        key: secret-access-key	
+        name: aws-lambda
   agent:
     # image: vfarcic/lambda-nodejs:10
     container: nodejs
