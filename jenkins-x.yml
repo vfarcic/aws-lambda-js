@@ -25,7 +25,7 @@ pipelineConfig:
         stages:
         - name: setVersion
           steps:
-          - sh: echo \$(jx-release-version) > VERSION
+          - sh: echo `jx-release-version` > VERSION
             name: next-version
           - sh: jx step tag --version $(cat VERSION)
             name: tag-version
@@ -43,12 +43,8 @@ pipelineConfig:
         stages:
         - name: build
           steps:
+          # TODO: Does it make sense to have a system that will deploy each PR separately? The lifecycle oof functions is much shorter and usually only a single person works on a function.
+          # TODO: How can we delete the old PRs? Can we trigger a pipeline when a PR is closed?
           - name: deploy
             sh: serverless deploy --verbose --region $REGION --stage pr
-        # # TODO: Does it make sense to have a system that will deploy each PR separately? The lifecycle oof functions is much shorter and usually only a single person works on a function.
-        # # TODO: How can we delete the old PRs? Can we trigger a pipeline when a PR is closed?
-        # - name: deploy-pr
-        #   sh: serverless deploy --verbose --region \$REGION --stage pr
-        #   agent:
-        #     image: vfarcic/lambda-nodejs:10
 
