@@ -17,6 +17,6 @@ pipelineConfig:
         - sh: git config --global credential.helper store
           when: "!prow"
           name: git-config
-        - sh: jx step git credentials
+        - sh: jx step git credentialsxxx
           when: "!prow"
           name: git-credentials
