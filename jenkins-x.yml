@@ -20,13 +20,8 @@ pipelineConfig:
       steps:
       - name: changelog
         sh: jx step changelog --version v\$(cat ../../VERSION)
-      # TODO: Move to the stagin env. repo
+      # TODO: Move to the staging env. repo
       - name: deploy
-        sh: serverless deploy --verbose --region us-west-1
+        sh: serverless deploy --verbose --region us-west-2
         agent:
           image: vfarcic/lambda-nodejs:10
-      # steps:
-      # - name: something 1
-      #   sh: echo \$AWS_ACCESS_KEY_ID
-      # - name: something 2
-      #   sh: echo \$AWS_SECRET_ACCESS_KEY
