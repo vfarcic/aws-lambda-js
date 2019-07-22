@@ -30,3 +30,5 @@ pipelineConfig:
           image: vfarcic/lambda-nodejs:10
     - pipeline: pullRequest
       stage: build
+    - pipeline: pullRequest
+      stage: postBuild
