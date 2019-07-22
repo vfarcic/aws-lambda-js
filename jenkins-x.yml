@@ -2,41 +2,21 @@ buildPack: none
 pipelineConfig:
   agent:
     image: vfarcic/lambda-nodejs:10
-  # # TODO: Customize depending on the provider
-  # env:
-  # - name: REGION
-  #   value: us-west-2
-  # - name: AWS_ACCESS_KEY_ID
-  #   valueFrom:
-  #     secretKeyRef:
-  #       key: access-key-id
-  #       name: aws-lambda
-  # - name: AWS_SECRET_ACCESS_KEY
-  #   valueFrom:
-  #     secretKeyRef:
-  #       key: secret-access-key
-  #       name: aws-lambda
   pipelines:
     release:
-      promote:
+      setup:
         steps:
-        - name: changelog
-          sh: jx step changelog --version v\$(cat ../../VERSION)
-        # TODO: Should we move `deploy` to the staging env. repo? Functions are so small that waiting for the process behind env. repos might be too much.
-        - name: deploy
-          sh: serverless deploy --verbose --region \$REGION --stage production
-          agent:
-            image: vfarcic/lambda-nodejs:10
-    # - pipeline: pullRequest
-    #   stage: build
-    # - pipeline: pullRequest
-    #   stage: postBuild
-    # - pipeline: pullRequest
-    #   stage: promote
-    #   steps:
-    #   # TODO: Does it make sense to have a system that will deploy each PR separately? The lifecycle oof functions is much shorter and usually only a single person works on a function.
-    #   # TODO: How can we delete the old PRs? Can we trigger a pipeline when a PR is closed?
-    #   - name: deploy
-    #     sh: serverless deploy --verbose --region \$REGION --stage pr
-    #     agent:
-    #       image: vfarcic/lambda-nodejs:10
+        - groovy: git 'https://github.com/vfarcic/aws-lambda-js.git'
+          when: "prow"
+        - groovy: checkout scm
+          when: "!prow"
+        - sh: git checkout master
+          name: git-checkout-master
+          comment: ensure we're not on a detached head
+          when: "!prow"
+        - sh: git config --global credential.helper store
+          when: "!prow"
+          name: git-config
+        - sh: jx step git credentials
+          when: "!prow"
+          name: git-credentials

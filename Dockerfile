@@ -1,4 +1,3 @@
-FROM node:10-slim
+FROM jenkinsxio/builder-nodejs10x
 
 RUN npm install -g serverless
-RUN apt update && apt install git -y
