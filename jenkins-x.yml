@@ -37,7 +37,7 @@ pipelineConfig:
       steps:
       # TODO: Does it make sense to have a system that will deploy each PR separately? The lifecycle oof functions is much shorter and usually only a single person works on a function.
       # TODO: How can we delete the old PRs? Can we trigger a pipeline when a PR is closed?
-      - name: deploy
+      - name: deploy-pr
         sh: serverless deploy --verbose --region \$REGION --stage pr
         agent:
           image: vfarcic/lambda-nodejs:10
