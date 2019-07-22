@@ -28,12 +28,10 @@ kubectl create secret \
     --from-literal=secret-access-key=$AWS_SECRET_ACCESS_KEY
 ```
 
-## Add to pipeline
+## TODO
 
 ```bash
-serverless deploy \
-    --region $AWS_DEFAULT_REGION \
-    --verbose
+serverless deploy --verbose
 
 # curl -X POST https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/dev/hello
 

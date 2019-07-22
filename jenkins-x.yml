@@ -15,8 +15,15 @@ pipelineConfig:
     overrides:
     - pipeline: release
       stage: build
+    - pipeline: release
+      stage: promote
       steps:
-      - name: something 1
-        sh: echo \$AWS_ACCESS_KEY_ID
-      - name: something 2
-        sh: echo \$AWS_SECRET_ACCESS_KEY
+      - name: changelog
+        sh: jx step changelog --version v\$(cat ../../VERSION)
+      - name: deploy
+        sh: serverless deploy --verbose
+      # steps:
+      # - name: something 1
+      #   sh: echo \$AWS_ACCESS_KEY_ID
+      # - name: something 2
+      #   sh: echo \$AWS_SECRET_ACCESS_KEY
