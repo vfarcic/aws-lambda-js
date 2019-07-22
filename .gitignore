@@ -1,3 +1,6 @@
 /function.zip
 /secrets
 /response.json
+/skaffold.yaml
+/Makefile
+/charts
