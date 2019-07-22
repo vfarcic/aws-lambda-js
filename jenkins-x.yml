@@ -20,8 +20,11 @@ pipelineConfig:
       steps:
       - name: changelog
         sh: jx step changelog --version v\$(cat ../../VERSION)
+      # TODO: Move to the stagin env. repo
       - name: deploy
         sh: serverless deploy --verbose
+        agent:
+          image: vfarcic/lambda-nodejs:10
       # steps:
       # - name: something 1
       #   sh: echo \$AWS_ACCESS_KEY_ID
