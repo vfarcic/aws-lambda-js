@@ -35,6 +35,11 @@ pipelineConfig:
             sh: serverless deploy --verbose --region $REGION --stage production
             agent:
               image: vfarcic/lambda-nodejs:10
+            # The value of `--function` must be generated during the creation of the project.
+          - name: sanity-test
+            sh: serverless invoke --region $REGION --function hello --log --stage production
+            agent:
+              image: vfarcic/lambda-nodejs:10
     pullRequest:
       pipeline:
         agent:
@@ -43,7 +48,11 @@ pipelineConfig:
         - name: build
           steps:
           # TODO: Does it make sense to have a system that will deploy each PR separately? The lifecycle oof functions is much shorter and usually only a single person works on a function.
-          # TODO: How can we delete the old PRs? Can we trigger a pipeline when a PR is closed?
+          # TODO: If the answer to the previous question is yes, we should figure out how to delete the old PRs?
+          # Can we trigger a pipeline when a PR is closed? If we can, we can execute `serverless remove --region $REGION --stage pr`.
           - name: deploy
             sh: serverless deploy --verbose --region $REGION --stage pr
+            # The value of `--function` must be generated during the creation of the project.
+          - name: sanity-test
+            sh: serverless invoke --region $REGION --function hello --log --stage pr
 
